@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> Product Description Page</title>
+    
+     <style>
+
+        body
+        {
+            background-color:white;
+        }
+
+        /* Header */
+        
+        .header
+        {
+       
+        text-align: left;
+        background-image:url(https://images.unsplash.com/photo-1539321908154-04927596764d?ixlib=rb-1.2.1&auto=format&fit=crop&w=755&q=80);
+        color:white;
+        font-size: 20px;
+        }
+
+        .footer
+        {
+            position: fixed;
+            left:0;
+            bottom:0;
+            width:100%;
+            background-color:bisque;
+            color:black;
+            text-align:right;
+            font-size:6px;
+        }
+        
+        .button1
+        {
+            text-align: center;
+            padding: 0px 32ps;
+        }
+
+        a
+        {
+            text-decoration: none;
+            display: inline-block;
+            padding: 8px 16px;
+        }
+
+        a:hover
+        {
+            background-color:blanchedalmond;
+            color: black;
+        }
+
+        .previous
+        {
+            background-color: white;
+            color: black;
+        }
+        
+        .grid-container
+        {
+            display: grid;
+            justify-content: space-evenly;
+            grid-template-columns: auto auto;
+            grid-template-rows: auto auto;
+            grid-gap: 10px;
+            padding: 10px;
+            color:black;
+        }
+
+        .grid-container > div
+        {   
+           text-align: left;
+        }
+
+        * 
+        {
+         box-sizing: border-box;
+        }
+
+        #more
+        {
+            display: none;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            }
+
+        li {
+        display: inline;
+        background-color: bisque;
+        padding-top: 9px;
+        padding-bottom: 9px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Header -->
+    <header class = "header">
+        <h1 style="font-size:10vw">Planting Planets</h1>
+    </header>
+
+     <!-- Menu -->
+
+     <ul>
+        <li><a href="frontstoreHomepage.html">Home</a></li>
+        <li><a href="SignUp.html">Register</a></li>
+        <li><a href="login.html">Log In</a></li>
+        <li><a href="ShoppingCart.html">Shopping Cart</a></li>
+    </ul>
+
+    <!-- Button to go to appropriate aisle -->
+    <a href="seedAsile.html" class="previous">&laquo; Go Back to Seeds & Fertilizer</a>
+
+    <!-- Main Body -->
+
+    <div class="grid-container">
+      
+        <!-- Product Image-->
+        <div>
+            <img src="seed pet.jpg"
+            style="max-width:100%" height=200px
+            alt="seed pet">
+
+        </div>
+
+        <!-- Product Description -->
+        <div>
+            <h3>Seed pets</h3>
+            <p>$499.00/each</p>
+            
+                <!-- Select the Quantity -->
+                <form>
+                    <label for="quantity">Quantity:</label>
+                    <select id="quantity"name="quantity">
+                        <option value="zero">0</option>
+                        <option value="one">1</option>
+                        <option value="two">2</option>
+                        <option value="three">3</option>
+                        <option value="four">4</option>
+                        <option value="five">5</option>
+                        <option value="six">6</option>
+                        <option value="seven">7</option>
+                        <option value="eight">8</option>
+                        <option value="nine">9</option>
+                        <option value="ten">10</option>
+                    </select>
+                           
+                </form>
+
+                <br>
+                <!-- Select the size-->
+                <form>
+                    <label for="size">Character:</label>
+                    <select id="size"name="size">
+                        <option value="random">Random</option>
+                    </select>    
+                </form>
+
+                <br>
+                <!-- Select the type-->
+                <form>
+                    <label for="type">Type:</label>
+                    <select id="type"name="type">
+                        <option value="green">Green</option>
+                        <option value="red">Red</option>
+                    </select>    
+                </form>
+
+                <br>   
+            
+        </div>
+        <div>
+
+            <!-- Product Description -->
+            <br>
+            <b>Product Description:</b><br><br>
+                <p>
+                    This is a seed pet from pokemon planet.
+                    <br>Extremly cute and suitable for all age group.
+                    <br>Recommended for pet lovers.
+
+                    <!-- Adding "..." in the text -->
+                    <span id="dots">...</span>
+
+                    <!-- Read more button -->
+                    <span id="more">
+                        <br><br>Origin: Pokémon Planet.
+                        <br>Product caution: might bite people.
+                    </span>
+                </p>
+
+            <button onclick="myFunction()" id="myBtn">More Description</button>
+            
+        </div>  
+        <!-- Add to Cart Button -->
+        <div>
+            <button type="button">Add to Cart</button>
+        </div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+    <!-- Footer -->
+    <footer class = "footer">
+        <h1>Copyright Planting Planets SOEN 287</h1>
+    </footer>
+
+                <!-- Javascript for More Description -->
+                <script>
+                    function myFunction() {
+          var dots = document.getElementById("dots");
+          var moreText = document.getElementById("more");
+          var btnText = document.getElementById("myBtn");
+        
+          if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "More Description"; 
+            moreText.style.display = "none";
+          } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Less Description"; 
+            moreText.style.display = "inline";
+          }
+        }
+        </script>
+
+
+</body>
+
+
+
+</html>

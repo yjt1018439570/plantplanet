@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shopping Cart</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+		
+			* {
+				box-sizing: border-box;
+			}
+
+			.row::after {
+				content: "";
+				clear: both;
+				display: table;
+			}
+
+			[class*="col-"] {
+				float: left;
+				padding: 15px;
+			}
+
+			html {
+				color: #a0afa0;
+				font-family: 'Times New Roman', serif;
+				background-color: #d3ffd3;
+			}
+
+			.header {
+				background-color: #e9ffd3;
+				text-align: center;
+				padding: 15px;
+			}
+
+			/*navigation bar*/
+			.nav ul {
+				list-style-type: none;
+				overflow: hidden;
+				background-color: #a0afa0;
+				padding: 0;
+				margin: 0;
+			}
+						
+			.nav li a {
+				display: block;
+				float: left;
+				text-align: center;
+				text-decoration: none;
+				color: #f6f4f2;
+				background-color: #a0afa0;
+				padding: 5px;
+			}
+						
+			.nav li a:hover{
+				background-color: #ceb599;
+			}
+			
+			/*shopping cart title*/
+			.shop {
+				text-align: left;
+				color: #546254;
+				font-size: large;
+				font-family: 'Lucida Sans Unicode', sans-serif;
+				margin-left: 20px;
+			}
+						
+			.cart ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.cart li {
+                display: grid;
+                grid-template-columns: 20% auto 30% 20%;
+                grid-gap: 2px;
+                word-break: break-word;
+                background-color: #e7ffe7;
+                margin-bottom: 5px;
+			}
+			
+			.cart li:hover {
+				background-color: #c0ffc0;
+			}
+			
+			.cart li div {
+				padding: 5px;
+			}
+			
+			.footer {
+				background-color: #e9ffd3;
+				text-align: center;
+				font-size: smaller;
+				padding: 5px;
+			}
+
+			/*for phones: */
+			[class*="col-"] {
+				width: 100%;
+			}
+			
+			@media only screen and (max-width: 767px) {
+			/*for phones(landscape)*/
+				.shop {
+					text-align: center;
+					font-size: xx-large;
+				}
+			}
+
+			@media only screen and (min-width: 768px) and (max-width: 1023px) {
+				/*for tablets*/
+				.pname {
+					font-size: x-large;
+				}
+				
+				.pinfo, .oname {
+					font-size: large;
+				}
+				
+				.shop {
+					font-size: xx-large;
+				}
+			}
+			
+			@media only screen and (min-width: 1024px) {
+				/*for desktop*/
+				.col-1 {width: 8.33%;}
+				.col-2 {width: 16.66%;}
+				.col-3 {width: 25%;}
+				.col-4 {width: 33.33%;}
+				.col-5 {width: 41.66%;}
+				.col-6 {width: 50%;}
+				.col-7 {width: 58.33%;}
+				.col-8 {width: 66.66%;}
+				.col-9 {width: 75%;}
+				.col-10 {width: 83.33%;}
+				.col-11 {width: 91.66%;}
+				.col-12 {width: 100%;}
+				
+				.pname {
+					font-size: x-large;
+				}
+				
+				.pinfo {
+					font-size: large;
+				}
+				
+				.shop {
+					font-size: xx-large;
+				}
+			}
+			
+			/*cart product details*/
+			.pimage img { /*product image*/
+				height: auto;
+				width: 100%;
+				padding: 2px;
+			}
+			.pname { /*product name*/
+				color: #546254;
+			}
+			
+			.pinfo { /*product info*/
+				color: #ceb599;
+			}
+			
+			.ptype select { /*product type*/
+				border: none;
+				color: #f6f4f2;
+				background-color: #a0afa0;
+				width: 100%;
+			}
+			
+			.psize select { /*product size*/
+				border: none;
+				color: #f6f4f2;
+				background-color: #a0afa0;
+				width: 100%;
+			}
+			
+			.qprice { /*product price considering quantity*/
+				color: #546254;
+				font-weight: bold;
+				font-size: larger;
+				text-align: center;
+				margin-top: 10%;
+			}
+			
+			/*quantity buttons*/
+			.qty {
+				text-align: center;
+				margin-left: 10%;
+				margin-right: 10%;
+			}
+			
+			.qty input[type=button] {
+				border: none;
+				text-align: center;
+				color: #f6f4f2;
+				background-color: #a0afa0;
+				width: 25%;
+				padding: 0;
+			}
+			
+			.qty input[type=button]:hover {
+				background-color: #b5c1b5;
+			}
+			
+			.qty input[type=text] {
+				border: none;
+				text-align: center;
+				width: 25%;
+				color: #546254;
+				background-color: #f6f4f2;
+			}
+			
+			/*delete button*/
+			.delete {
+				text-align: center;
+			}
+			
+			.delete input[type=button] {
+				color: #f6f4f2;
+				border: none;
+				background-color: #ffc58f;
+				margin-top: 20%;
+				padding: 5px;
+				width: 75%;
+			}
+			
+			.delete input[type=button]:hover {
+				background-color: #ffdfc2;
+			}
+			
+			/*order summary*/
+			.sum {
+				background-color: #f6f4f2;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				margin: 20px;
+			}
+			
+			.sum ul {
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.sum li {
+				display: grid;
+				grid-template-columns: 20% auto 30%;
+				grid-gap: 2px;
+				word-break: break-word;
+				padding: 5px;
+			}
+			
+			
+			.sum li div {
+				padding: 2px;
+			}
+			
+			.oname {
+				color: #546254;
+			}
+			
+			.pqty {
+				color: #546254;
+			}
+			
+			.tprice, .tproducts {
+				text-align: right;
+				color: #546254;
+			}
+			
+			span.type {
+				color: #ceb599;
+				font-size: smaller;
+			}
+			
+			/*continue shopping button*/
+			.continue {
+				text-align: center;
+			}
+			
+			.continue input[type=button] {
+				border: none;
+				text-align: center;
+				color: #f6f4f2;
+				background-color: #a0afa0;
+				width: 40%;
+				padding: 5px;
+			}
+			
+			.continue input[type=button]:hover {
+				background-color: #b5c1b5;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<hgroup>
+			<div class="header">
+				<h1>Planting Planets</h1>
+			</div>
+			<div class ="nav">
+				<ul>
+					<li><a href ="frontstoreHomepage.html">Home</a></li>
+					<li><a href ="SignUp.html">Register</a></li>
+					<li><a href ="login.html">Log In</a><li>
+					<li style="float:right"><a href="ShoppingCart.html">Shopping Cart</a></li>
+				</ul>
+			</div>
+		</hgroup>
+		
+		<div class = "shop">
+			<h4>My Shopping Cart</h4>
+		</div>
+
+		<div class="row">
+			<div class="col-8 cart">
+				<ul>
+					<li>
+						<div class = "pimage">
+							<img src ="vaporizer.png" alt="Rock Vaporizer">
+						</div>
+						<div>
+							<div class = "pname">Rock Vaporizer</div>
+							<div class = "pinfo">50kg/each<br />$500.00</div>
+							<div class = "ptype">
+								<form action = "">
+									<select name = "type">
+										<option selected="selected">vers2.0</option>
+										<option>vers300</option>
+										<option>limited</option>
+									</select>
+								</form>
+							</div>
+							<div class = "psize">
+								<form action = "">
+									<select name = "size">
+										<option selected="selected">Small</option>
+										<option>Medium</option>
+										<option>Large</option>
+									</select>
+								</form>
+							</div>
+						</div>
+						<div>
+							<div class = "qprice">$500.00</div>
+							<div class = "qty">
+								<form action ="">
+									<input type = "button" value="-">
+									<input type = "text" placeholder="1">
+									<input type = "button" value="+">
+								</form>
+							</div>
+						</div>
+						<div class = "delete">
+							<form action = "">
+								<input type = "button" value ="Delete">
+							</form>
+						</div>
+					</li>
+					<li>
+						<div class = "pimage">
+							<img src ="flowership.png" alt="Flowership">
+						</div>
+						<div>
+							<div class = "pname">Flowership</div>
+							<div class = "pinfo">10kg/each<br />$15.00</div>
+							<div class = "ptype">
+								<form action = "">
+									<select name = "type">
+										<option>Green</option>
+										<option selected="selected">Blue</option>
+										<option>Maroon</option>
+									</select>
+								</form>
+							</div>
+							<div class = "psize">
+								<form action = "">
+									<select name = "size">
+										<option>Small</option>
+										<option selected="selected">Medium</option>
+										<option>Large</option>
+									</select>
+								</form>
+							</div>
+						</div>
+						<div>
+							<div class = "qprice">$30.00</div>
+							<div class = "qty">
+								<form action ="">
+									<input type = "button" value="-">
+									<input type = "text" placeholder="2">
+									<input type = "button" value="+">
+								</form>
+							</div>
+						</div>
+						<div class = "delete">
+							<form action = "">
+								<input type = "button" value ="Delete">
+							</form>
+						</div>
+					</li>
+					<li>
+						<div class = "pimage">
+							<img src ="mower.png" alt="Particle Mower">
+						</div>
+						<div>
+							<div class = "pname">Particle Mower</div>
+							<div class = "pinfo">100kg/each<br />$115.00</div>
+							<div class = "ptype">
+								<form action = "">
+									<select name = "type">
+										<option>Single-Particle</option>
+										<option selected="selected">Multi-Particle</option>
+									</select>
+								</form>
+							</div>
+							<div class = "psize">
+								<form action = "">
+									<select name = "size">
+										<option>Small</option>
+										<option>Medium</option>
+										<option selected="selected">Large</option>
+									</select>
+								</form>
+							</div>
+						</div>
+						<div>
+							<div class = "qprice">$355.00</div>
+							<div class = "qty">
+								<form action ="">
+									<input type = "button" value="-">
+									<input type = "text" placeholder="3">
+									<input type = "button" value="+">
+								</form>
+							</div>
+						</div>
+						<div class = "delete">
+							<form action = "">
+								<input type = "button" value ="Delete">
+							</form>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-4">
+				<div class = "sum">
+					<h4 style="text-align:center;">Order Summary</h4>
+					<ul>
+						<li>
+							<div class = "pqty">1x</div>
+							<div class = "oname">Rock Vaporizer<br /><span class = "type">vers2 | Small</span></div>
+							<div class = "tprice">$500.00</div>
+						</li>
+						<li>
+							<div class = "pqty">2x</div>
+							<div class = "oname">Flowership<br /><span class = "type">Blue | Medium</span></div>
+							<div class = "tprice">$30.00</div>
+						</li>
+						<li>
+							<div class = "pqty">3x</div>
+							<div class = "oname">Particle Mower<br /><span class = "type">Multi-Particle | Large</span></div>
+							<div class = "tprice">$355.00</div>
+						</li>
+					</ul>
+					<hr>
+					<ul>
+						<li>
+							<div></div>
+							<div style="text-align:right;">Total Products</div>
+							<div class="tproducts">6</div>
+						</li>
+						<li>
+							<div></div>
+							<div style="text-align:right;">Total Before Tax</div>
+							<div class ="tprice" style="border-bottom:solid 1px black">$885.00</div>
+						</li>
+						<li>
+							<div></div>
+							<div style="text-align:right;">QST</div>
+							<div class ="tprice">$88.28</div>
+						</li>
+						<li>
+							<div></div>
+							<div style="text-align:right;">GST</div>
+							<div class ="tprice">$44.25</div>
+						</li>
+						<li>
+							<div></div>
+							<div style="text-align:right;font-weight:bold;">TOTAL</div>
+							<div class ="tprice">$1017.53</div>
+						</li>
+					</ul>
+				</div>
+				<div class = "continue">
+					<form action = "">
+						<input type ="button" value="Continue Shopping">
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="footer">
+			<p>Copyright &copy; 2020 Planting Planets SOEN 287</p>
+		</div>
+		
+
+	</body>
+</html>
